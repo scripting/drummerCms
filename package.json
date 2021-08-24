@@ -1,0 +1,15 @@
+{
+	"name": "drummercms",
+	"version": "0.4.2",
+	"main": "drummercms.js",
+	"files": [
+		"drummercms.js"
+		],
+	"dependencies" : {
+		"request": "*",
+		"daveutils": "*",
+		"davehttp": "*",
+		"opml": "*",
+		"oldschoolblog": "*"
+		}
+	}
