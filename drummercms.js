@@ -1,4 +1,4 @@
-var myVersion = "0.4.2", myProductName = "drummerCms";    
+var myVersion = "0.4.4", myProductName = "drummerCms";    
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -60,6 +60,7 @@ function initBlogConfig (blogName, theOutline, callback) {
 	var urlTemplate = getValueFromOpmlHead ("urlTemplate", config.defaultTemplate);
 	var urlHomePageTemplate = getValueFromOpmlHead ("urlHomePageTemplate", undefined);
 	var urlGlossary = getValueFromOpmlHead ("urlGlossary", undefined);
+	var flOldSchoolUseCache = getValueFromOpmlHead ("flOldSchoolUseCache", false);
 	if (theConfig === undefined) {
 		var basePath = "/oldschool.scripting.com/" + blogName + "/";
 		const urlOpml = "http://drummer.scripting.com/" + blogName + "/blog.opml";
@@ -69,7 +70,7 @@ function initBlogConfig (blogName, theOutline, callback) {
 			basePathItems: basePath + "items/",
 			baseUrl: "http:/" + basePath,
 			title,
-			link: "http://" + basePath + "/",
+			link: "http://" + basePath, //8/29/21 by DW
 			description,
 			urlTemplate,
 			urlHomePageTemplate,
@@ -96,7 +97,8 @@ function initBlogConfig (blogName, theOutline, callback) {
 			flIncludeImageInMetadata: true,
 			urlGlossaryOpml: urlGlossary,
 			flGoogleAnalytics: false,
-			flAlwaysBuildHomePage: true //8/23/21 by DW
+			flAlwaysBuildHomePage: true, //8/23/21 by DW
+			flOldSchoolUseCache //8/30/21 by DW
 			};
 		theConfig = oldschoolConfig.blogs [blogName];
 		copyAllHeadElements ();
