@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>[%pagetitle%]</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		[%rssLink%]
+		[%facebookmetadata%]
+		[%twittermetadata%]
+		
+		<link href="//fonts.googleapis.com/css?family=Ubuntu:400,500i,700" rel="stylesheet">
+		<link rel="stylesheet" href="//scripting.com/code/fontawesome/css/all.css">
+		<link rel="stylesheet" href="//fargo.io/code/editors/mediumeditor/dist/css/medium-editor.css"> 
+		<link rel="stylesheet" href="//fargo.io/code/editors/mediumeditor/dist/css/themes/default.css"> 
+		<script src="//fargo.io/code/editors/mediumeditor/dist/js/medium-editor.js"></script>
+		<script src="//scripting.com/code/includes/jquery-1.9.1.min.js"></script>
+		<link href="//scripting.com/code/includes/bootstrap.css" rel="stylesheet">
+		<script src="//scripting.com/code/includes/bootstrap.min.js"></script>
+		<script src="//scripting.com/code/includes/basic/code.js"></script>
+		<link href="//scripting.com/code/includes/basic/styles.css" rel="stylesheet" type="text/css">
+		<link href="//radio3.io/code/pagestyles.css" rel="stylesheet" type="text/css">
+		<script src="//scripting.com/code/tweeteditor/code.js"></script>
+		<script src="//scripting.com/code/nodestorage/api.js"></script>
+		<script src="//scripting.com/code/imageclick/dialog.js"></script>
+		<script src="//scripting.com/code/xml/code.js"></script>
+		<script src="//scripting.com/code/tagrefdialog/dialog.js"></script>
+		<script src="//scripting.com/code/opmlpackage/client/opml.js"></script>
+		<script src="//scripting.com/code/outlinebrowser/code.js"></script>
+		<link href="//scripting.com/code/outlinebrowser/styles.css" rel="stylesheet" type="text/css">
+		<link href="//scripting.com/code/drummercms/templates/minimal/styles.css" rel="stylesheet" type="text/css">
+		<script src="//scripting.com/code/drummercms/templates/minimal/code.js"></script>
+		
+		<script>
+			var config = [%configJson%];
+			var opmlHead = [%opmlHead%];
+			</script>
+		</head>
+	<body>
+		<div id="idTweetDialog" class="modal hide fade divTweetDialog">
+			<div class="divTweetDialogContainer">
+				<div id="idMyTweetEditor">
+					</div>
+				</div>
+			</div>
+		<div class="divToggleConnect"><a onclick="toggleTwitterConnect ();" id="idToggleConnect"></a></div><div>&nbsp;</div>
+		<div class="divVersionNumber" id="idVersionNumber">
+			</div>
+		<div class="divPagetop">
+			[%pagetop%]
+			</div>
+		<div class="divPageBody">
+			<div class="divTabsPage" id="idTabsPage" style="display: none">
+				<div class="divTabs" id="idTabs">
+					<div class="divLastBlogUpdate" id="idLastBlogUpdate">
+						</div>
+					<ul id="idTabList" class="nav nav-tabs">
+						</ul>
+					</div>
+				
+				<div class="divTabContentContainer">
+					<div class="divTabContent" id="idTabContent">
+						[%bodytext%]
+						</div>
+					</div>
+				
+				</div>
+			<div class="divDayContainer" id="idDayContainer" style="display: none">
+				[%bodytext%]
+				</div>
+			<div class="divFooter">
+				<p>[%copyright%]</p>
+				<p>Last update: [%now%].</p>
+				[%socialMediaLinks%]
+				</div>
+			</div>
+		<script>
+			$(document).ready (function () {
+				startup ();
+				});
+			</script>
+		</body>
+	</html>
