@@ -1,17 +1,7 @@
 var myVersion = "0.7.0";
 
-const flLikesEnabled = false; //2/7/20 by DW -- I want to reclaim the space, they weren't being used, and the server needs a new interface
-
-var mySnap, flSnapDrawerOpen = false;
-var urlSidebarOpml = "http://scripting.com/misc/menubar.opml";
-var drawerWidth = 300;
-
 const rightCaret = "fa fa-caret-right darkCaretColor", downCaret = "fa fa-caret-down lightCaretColor";
-var tweetSerialnum = 0;
 var urlTwitterServer = "http://electricserver.scripting.com/";
-const urlLinkblogPage = "http://scripting.com/?tab=links"; //9/13/17 by DW
-var ctLikesInPage = 0; //11/10/18 by DW
-
 
 ///tabs -- 9/2/21 by DW
 	var tabs = [
@@ -343,39 +333,6 @@ var ctLikesInPage = 0; //11/10/18 by DW
 				break;
 			}
 		return (theText);
-		}
-	function setupLikes () {
-		if (flLikesEnabled) { //2/7/20 by DW
-			$(".divTitledItem, .divSingularItem").each (function () {
-				var theText = maxStringLength ($(this).text (), 25);
-				var flLikeSetup = getBoolean ($(this).data ("likesetup"));
-				var attval = $(this).data ("fllikeable"), flLikeable;
-				if (dayGreaterThanOrEqual (config.now, "November 22, 2018")) {
-					flLikeable = true; //default -- 11/22/18 by DW
-					if (attval !== undefined) {
-						flLikeable = getBoolean (attval);
-						}
-					}
-				else {
-					flLikeable = getBoolean (attval);
-					}
-				if ((flLikeable) && (!flLikeSetup)) {
-					var id = "idLike" + ctLikesInPage++;
-					$(this).attr ("data-likesetup", true);
-					$(this).append ("<span id=\"" + id + "\"></span>");
-					
-					var href = getPostPermalink (this); //12/15/18 by DW
-					getLikes (href, function (err, theLikes) {
-						if (err) {
-							console.log ("setupLikes: err.message == " + err.message);
-							}
-						else {
-							viewLikes (id, href, theLikes);
-							}
-						});
-					}
-				});
-			}
 		}
 //twitter comments -- 12/14/18 by DW
 	const tweetCommentHashtag = "#scriptingnews";
@@ -884,7 +841,6 @@ function setupJavaScriptFeatures () { //1/15/19 by DW
 	setupExpandableVideo (); //10/9/17 by DW
 	setupExpandableOutline (); //5/15/18 by DW
 	setupTwitterComments (); //12/14/18 by DW
-	setupLikes (); //11/8/18 by DW
 	setupSpoilers (); //3/3/20 by DW
 	setupTagrefs (); //7/17/21 by DW
 	try { //9/21/19 by DW
@@ -914,7 +870,6 @@ function startup () {
 	updateTwitterButton (); //4/23/19 by DW
 	twStorageData.urlTwitterServer = urlLikeServer;
 	twGetOauthParams (); //11/10/18 by DW
-	
 	
 	//get tab param, if present, redirect to appropriate page
 		var tabParam = getURLParameter ("tab");
