@@ -1,4 +1,4 @@
-var myVersion = "0.4.4", myProductName = "drummerCms";    
+var myVersion = "0.4.5", myProductName = "drummerCms";    
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -14,7 +14,13 @@ var config = {
 	defaultDescription: "",
 	defaultHeaderImage: "http://scripting.com/images/2021/08/02/joeDiMaggio.png",
 	defaultCopyright: "",
-	defaultTemplate: "http://scripting.com/code/drummercms/template/index.html"
+	defaultTemplate: "http://scripting.com/code/drummercms/template/index.html",
+	specialOutlines: { //9/4/21 by DW
+		changenotes: {
+			urlBlogOpml: "http://drummer.scripting.com/davewiner/drummer/changeNotes.opml",
+			basePath: "/scripting.com/drummer/blog/"
+			}
+		}
 	};
 var oldSchoolConfig = {
 	flHttpEnabled: false
@@ -37,7 +43,7 @@ function httpRequest (url, timeout, headers, callback) {
 			}
 		});
 	}
-function initBlogConfig (blogName, theOutline, callback) {
+function initBlogConfig (blogName, urlOpml, basePath, theOutline, callback) {
 	var oldschoolConfig = oldschool.getConfig ();
 	var theConfig = oldschoolConfig.blogs [blogName];
 	function copyAllHeadElements () {
@@ -62,8 +68,6 @@ function initBlogConfig (blogName, theOutline, callback) {
 	var urlGlossary = getValueFromOpmlHead ("urlGlossary", undefined);
 	var flOldSchoolUseCache = getValueFromOpmlHead ("flOldSchoolUseCache", false);
 	if (theConfig === undefined) {
-		var basePath = "/oldschool.scripting.com/" + blogName + "/";
-		const urlOpml = "http://drummer.scripting.com/" + blogName + "/blog.opml";
 		const appDomain = "oldschool.scripting.com";
 		oldschoolConfig.blogs [blogName] = {
 			basePath,   
@@ -136,15 +140,23 @@ function getBlogOutline (urlBlogOpml, callback) {
 		})
 	}
 function oldschoolBuild (blogName, callback) {
-	const whenstart = new Date ();
-	const urlBlogOpml = "http://drummer.scripting.com/" + blogName + "/blog.opml";
+	var urlBlogOpml, basePath, whenstart = new Date ();
+	if (config.specialOutlines [blogName] !== undefined) {
+		urlBlogOpml = config.specialOutlines [blogName].urlBlogOpml;
+		basePath = config.specialOutlines [blogName].basePath;
+		}
+	else {
+		urlBlogOpml = "http://drummer.scripting.com/" + blogName + "/blog.opml";
+		basePath = "/oldschool.scripting.com/" + blogName + "/";
+		}
+	
 	getBlogOutline (urlBlogOpml, function (err, theOutline) {
 		if (err) {
 			const message = "Can't build the blog for \"" + blogName + "\" because blog.opml doesn't exist in Drummer, or is private.";
 			callback ({message});
 			}
 		else {
-			initBlogConfig (blogName, theOutline, function (theConfig) {
+			initBlogConfig (blogName, urlBlogOpml, basePath, theOutline, function (theConfig) {
 				console.log ("oldschoolBuild: theOutline.opml.head == " + utils.jsonStringify (theOutline.opml.head));
 				var options = {
 					blogName
@@ -231,5 +243,3 @@ oldschool.init (oldSchoolConfig, function () {
 		davehttp.start (config, handleHttpRequest);
 		});
 	});
-
-
