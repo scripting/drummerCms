@@ -40,6 +40,24 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 	function setTabContent (htmltext) {
 		$("#idTabContent").html (htmltext);
 		}
+	function readGlossary (urlGlossary, callback) { //9/10/21 by DW
+		var theGlossary = new Object (), whenstart = new Date ();
+		if (urlGlossary === undefined) {
+			callback (theGlossary);
+			}
+		else {
+			readHttpFileThruProxy (urlGlossary, undefined, function (opmltext) {
+				if (opmltext !== undefined) {
+					var theOutline = opml.parse (opmltext);
+					theOutline.opml.body.subs.forEach (function (item) {
+						theGlossary [item.text] = item.subs [0].text;
+						});
+					console.log ("readGlossary: " + secondsSince (whenstart) + " secs.");
+					}
+				callback (theGlossary);
+				});
+			}
+		}
 	function viewBlogTab (callback) { //nothing to do, the content is already there
 		callback (true);
 		}
@@ -98,6 +116,14 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 			});
 		}
 	function viewAboutTab (callback) {
+		function safeEmojiProcess (s) {
+			try {
+				return (emojiProcess (s));
+				}
+			catch (err) {
+				return (s);
+				}
+			}
 		setTabContent (""); //wipe out the blog html before user sees it
 		readHttpFileThruProxy (opmlHead.urlAboutOpml, undefined, function (opmltext) {
 			if (opmltext !== undefined) {
@@ -106,8 +132,12 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 				var outlineBody = theOutline.opml.body;
 				var htmltext = renderOutlineBrowser (outlineBody, false, undefined, undefined, true);
 				
-				setTabContent (htmltext);
-				callback (true);
+				readGlossary (opmlHead.urlGlossary, function (theGlossary) {
+					htmltext = multipleReplaceAll (htmltext, theGlossary);
+					htmltext = safeEmojiProcess (htmltext);
+					setTabContent (htmltext);
+					callback (true);
+					});
 				}
 			else {
 				callback (false);
@@ -880,7 +910,7 @@ function startup () {
 		updateSnarkySlogan (); //1/23/19 by DW
 		setupJavaScriptFeatures ();
 		setPageTopImageFromMetadata (); //5/4/20 by DW
-		hitCounter (); 
+		hitCounter ("drummer"); 
 		if (config.flGoogleAnalytics) {
 			initGoogleAnalytics (config.appDomain, config.idGoogleAccount); 
 			}
