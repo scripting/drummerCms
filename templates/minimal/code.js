@@ -66,54 +66,18 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 		if (opmlHead.urlLinkblogJson === undefined) {
 			callback (false);
 			}
-		function appendDay (jstruct) {
-			var daytext = "", indentlevel = 0;
-			var dateFormat = "%A, %B %e, %Y";
-			try {dateFormat = pagetable.homePageDateFormat} catch (err) {};
-			var datestring = formatDate (jstruct.when, dateFormat);
-			function add (s) {
-				daytext += filledString ("\t", indentlevel) + s + "\n";
-				}
-			add ("<div class=\"divDayTitle\">" + datestring + "</div>");
-			add ("<div class=\"divLinkblogDay\">"); indentlevel++;
-			for (var i = 0; i < jstruct.dayHistory.length; i++) {
-				try {
-					var item = jstruct.dayHistory [i], linktext = "", icon = "";
-					//set linktext, icon
-						if ((item.link != undefined) && (item.link.length > 0)) {
-							var splitUrl = urlSplitter (trimLeading (item.link, " ")); //10/15/14 by DW -- remove leading blanks
-							var host = splitUrl.host;
-							if (beginsWith (host, "www.")) {
-								host = stringDelete (host, 1, 4);
-								}
-							linktext = " <a class=\"aHost\" href=\"" + item.link + "\" target=\"blank\">" + host + "</a>";
-							
-							
-							}
-					add ("<p>" + icon + item.text + linktext + "</p>");
+		else {
+			var urlHtmltext = stringPopExtension (opmlHead.urlLinkblogJson) + ".html";
+			readHttpFile (urlHtmltext, function (htmltext) {
+				if (htmltext === undefined) {
+					callback (false);
 					}
-				catch (error) {
-					console.log ("appendDay: error == " + error + " while adding item == " + item.text);
+				else {
+					setTabContent (htmltext);
+					callback (true);
 					}
-				}
-			add ("</div>"); indentlevel--;
-			return (daytext)
+				});
 			}
-		readHttpFile (opmlHead.urlLinkblogJson, function (jsontext) {
-			if (jsontext === undefined) {
-				callback (false);
-				}
-			else {
-				var htmltext = "", daysTable = JSON.parse (jsontext);
-				htmltext += "<div class=\"divLinkblogDays\" id=\"idLinkblogDays\" data-title=\"Linkblog\">";
-				for (var i = 0; i < daysTable.length; i++) { //10/8/16 by DW
-					htmltext += appendDay (daysTable [i].jstruct);
-					}
-				htmltext += "</div>";
-				setTabContent (htmltext);
-				callback (true);
-				}
-			});
 		}
 	function viewAboutTab (callback) {
 		function safeEmojiProcess (s) {
@@ -480,7 +444,6 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 		}
 	function infiniteScrollHandler () {
 		}
-
 function toggleTwitterConnect () {
 	twStorageData.urlTwitterServer = urlLikeServer; //8/21/19 by DW
 	twToggleConnectCommand ();

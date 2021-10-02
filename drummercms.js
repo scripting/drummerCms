@@ -217,7 +217,7 @@ function handleHttpRequest (theRequest) {
 		}
 	return (false);
 	}
-function readConfig (fname, config, callback) {
+function readConfig (fname, config, callback) { 
 	utils.sureFilePath (fname, function () {
 		fs.readFile (fname, function (err, data) {
 			if (!err) {
