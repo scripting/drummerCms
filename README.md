@@ -18,6 +18,10 @@ The <a href="https://github.com/scripting/drummerCms">repo</a> is open, use the 
 
 ### Updates
 
+* 10/14/21 by DW
+
+Added support for urlBlogWebsite head-level attribute. 
+
 * 9/4/21 by DW
 
 Provision for special outlines, where the OPML comes from somewhere else, and the output is uploaded to another S3 location.
