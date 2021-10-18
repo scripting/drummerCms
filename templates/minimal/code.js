@@ -80,6 +80,19 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 			}
 		}
 	function viewAboutTab (callback) {
+		
+		function processOutlineStruct (theOutline) {
+			var outlineBody = theOutline.opml.body;
+			var htmltext = renderOutlineBrowser (outlineBody, false, undefined, undefined, true);
+			
+			readGlossary (opmlHead.urlGlossary, function (theGlossary) {
+				htmltext = multipleReplaceAll (htmltext, theGlossary);
+				htmltext = safeEmojiProcess (htmltext);
+				setTabContent (htmltext);
+				callback (true);
+				});
+			}
+		
 		function safeEmojiProcess (s) {
 			try {
 				return (emojiProcess (s));
@@ -89,24 +102,22 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 				}
 			}
 		setTabContent (""); //wipe out the blog html before user sees it
-		readHttpFileThruProxy (opmlHead.urlAboutOpml, undefined, function (opmltext) {
-			if (opmltext !== undefined) {
-				var theOutline = opml.parse (opmltext);
-				
-				var outlineBody = theOutline.opml.body;
-				var htmltext = renderOutlineBrowser (outlineBody, false, undefined, undefined, true);
-				
-				readGlossary (opmlHead.urlGlossary, function (theGlossary) {
-					htmltext = multipleReplaceAll (htmltext, theGlossary);
-					htmltext = safeEmojiProcess (htmltext);
-					setTabContent (htmltext);
-					callback (true);
-					});
-				}
-			else {
-				callback (false);
-				}
-			});
+		
+		if (aboutOutline !== undefined) { //10/18/21 by DW
+			console.log ("viewAboutTab: using the pre-built aboutOutline.");
+			processOutlineStruct (aboutOutline)
+			}
+		else {
+			readHttpFileThruProxy (opmlHead.urlAboutOpml, undefined, function (opmltext) {
+				if (opmltext !== undefined) {
+					var theOutline = opml.parse (opmltext);
+					processOutlineStruct (theOutline);
+					}
+				else {
+					callback (false);
+					}
+				});
+			}
 		}
 	
 	function startTabsIfHomePage (activeTabName, callback) { 

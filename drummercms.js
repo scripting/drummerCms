@@ -1,4 +1,4 @@
-var myVersion = "0.4.7", myProductName = "drummerCms";    
+var myVersion = "0.4.8", myProductName = "drummerCms";    
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -70,6 +70,7 @@ function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callb
 	var urlTemplate = getValueFromOpmlHead ("urlTemplate", config.defaultTemplate);
 	var urlHomePageTemplate = getValueFromOpmlHead ("urlHomePageTemplate", undefined);
 	var urlGlossary = getValueFromOpmlHead ("urlGlossary", undefined);
+	var urlAboutOpml = getValueFromOpmlHead ("urlAboutOpml", undefined); //10/18/21 by DW
 	var timeZoneOffset = getValueFromOpmlHead ("timeZoneOffset", undefined); //10/13/21 by DW
 	
 	baseUrl = getValueFromOpmlHead ("urlBlogWebsite", baseUrl); //10/13/21 by DW
@@ -110,6 +111,7 @@ function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callb
 			flUploadItemsToS3: true,
 			flIncludeImageInMetadata: true,
 			urlGlossaryOpml: urlGlossary,
+			urlAboutOpml, //10/18/21 by DW
 			flGoogleAnalytics: false,
 			flAlwaysBuildHomePage: true, //8/23/21 by DW
 			flOldSchoolUseCache, //8/30/21 by DW
@@ -129,6 +131,7 @@ function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callb
 		theConfig.urlHeaderImage = urlHeaderImage;
 		theConfig.copyright = copyright;
 		theConfig.urlGlossaryOpml = urlGlossary;
+		theConfig.urlAboutOpml = urlAboutOpml; //10/18/21 by DW
 		copyAllHeadElements ();
 		callback (theConfig);
 		}
