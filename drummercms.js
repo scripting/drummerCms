@@ -1,4 +1,4 @@
-var myVersion = "0.4.8", myProductName = "drummerCms";    
+var myVersion = "0.4.9", myProductName = "drummerCms";   
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -132,6 +132,8 @@ function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callb
 		theConfig.copyright = copyright;
 		theConfig.urlGlossaryOpml = urlGlossary;
 		theConfig.urlAboutOpml = urlAboutOpml; //10/18/21 by DW
+		theConfig.baseUrl = baseUrl; //10/20/21 by DW
+		theConfig.timeZoneOffset = timeZoneOffset; //10/20/21 by DW
 		copyAllHeadElements ();
 		callback (theConfig);
 		}

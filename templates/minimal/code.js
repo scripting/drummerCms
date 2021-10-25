@@ -103,11 +103,17 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 			}
 		setTabContent (""); //wipe out the blog html before user sees it
 		
-		if (aboutOutline !== undefined) { //10/18/21 by DW
-			console.log ("viewAboutTab: using the pre-built aboutOutline.");
-			processOutlineStruct (aboutOutline)
+		var flBuilt = false;
+		try {
+			if (aboutOutline !== undefined) { //10/18/21 by DW
+				console.log ("viewAboutTab: using the pre-built aboutOutline.");
+				processOutlineStruct (aboutOutline)
+				flBuilt = true;
+				}
 			}
-		else {
+		catch (err) {
+			}
+		if (!flBuilt) {
 			readHttpFileThruProxy (opmlHead.urlAboutOpml, undefined, function (opmltext) {
 				if (opmltext !== undefined) {
 					var theOutline = opml.parse (opmltext);

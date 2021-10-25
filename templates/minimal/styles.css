@@ -608,16 +608,16 @@ body {
 	.spTagref { 
 		cursor: pointer;
 		}
-	.divScriptingTab .spTagref, .divDayContainer .spTagref {
+	.divTabContentContainer .spTagref, .divDayContainer .spTagref {
 		color: #0088cc;
 		}
-	.divScriptingTab .spTagref:hover, .divDayContainer .spTagref:hover {
+	.divTabContentContainer .spTagref:hover, .divDayContainer .spTagref:hover {
 		text-decoration: underline;
 		}
-	.divScriptingTab .spTagref:before, .divDayContainer .spTagref:before {
+	.divTabContentContainer .spTagref:before, .divDayContainer .spTagref:before {
 		content: "[";
 		}
-	.divScriptingTab .spTagref:after, .divDayContainer .spTagref:after {
+	.divTabContentContainer .spTagref:after, .divDayContainer .spTagref:after {
 		content: "]";
 		}
 
@@ -673,6 +673,9 @@ body {
 		.divAboutOutline ul {
 			margin-left: 5px;
 			}
+		.divTabs li {
+			width: 100px;
+			}
 		.divTitledItem .divTitle {
 			font-size: 22px;
 			margin-top: 15px;
@@ -684,15 +687,15 @@ body {
 			padding-left: 2px;
 			padding-right: 6px;
 			}
-		.divScriptingTabs li {
-			width: 92px;
-			}
+			.divScriptingTab li {
+				width: 92px;
+				}
 		.divTabContent {
 			margin-top: 20px;
 			margin-left: 30px;
 			margin-right: 30px;
 			}
-		.divLastScriptingUpdate {
+		.divLastBlogUpdate {
 			display: none;
 			}
 		 #discuss {
@@ -733,7 +736,7 @@ body {
 			margin-right: auto;
 			margin-top: 230px;
 			}
-		.divLastScriptingUpdate {
+		.divLastBlogUpdate {
 			display: none;
 			}
 		.divBidenAd {
