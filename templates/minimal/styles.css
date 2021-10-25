@@ -687,9 +687,9 @@ body {
 			padding-left: 2px;
 			padding-right: 6px;
 			}
-			.divScriptingTab li {
-				width: 92px;
-				}
+		.divTabs li {
+			width: 92px;
+			}
 		.divTabContent {
 			margin-top: 20px;
 			margin-left: 30px;
