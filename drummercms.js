@@ -1,4 +1,4 @@
-var myVersion = "0.4.9", myProductName = "drummerCms";   
+var myVersion = "0.4.10", myProductName = "drummerCms";   
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -175,14 +175,16 @@ function oldschoolBuild (blogName, callback) {
 			}
 		else {
 			initBlogConfig (blogName, urlBlogOpml, basePath, baseUrl, theOutline, function (theConfig) {
-				console.log ("oldschoolBuild: theOutline.opml.head == " + utils.jsonStringify (theOutline.opml.head));
+				console.log ("oldschoolBuild: blogName == " + blogName);
 				var options = {
 					blogName
 					};
-				oldschool.publishBlog (theOutline.opml, options, function (blogConfig) {
+				oldschool.publishBlog (theOutline.opml, options, function (blogConfig, eventLog) {
 					const data = {
 						baseUrl: blogConfig.baseUrl,
-						ctSecs: utils.secondsSince (whenstart)
+						ctSecs: utils.secondsSince (whenstart),
+						oldSchoolVersion: oldschool.getVersionInfo ().myVersion,
+						headLevelAtts: theOutline.opml.head
 						};
 					callback (undefined, data);
 					});

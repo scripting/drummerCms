@@ -791,6 +791,10 @@ function viewLastUpdateString () {
 		$("#idLastBlogUpdate").html ("Updated: " + whenstring + ".");
 		}
 	}
+function viewFooterLastUpdateString () { //10/28/21 by DW
+	var theString = formatDate (new Date (config.now), "%A, %B %e, %Y at %l:%M %p");
+	$("#idLastUpdateStringInFooter").text (theString);
+	}
 function updateSnarkySlogan () { //1/23/19 by DW
 	$("#idSnarkySlogan").html (getRandomSnarkySlogan ());
 	}
@@ -874,6 +878,7 @@ function movePageDownForOldArchivePages () { //9/21/19 by DW
 		$(".divPageBody").css ("margin-top", "270px")
 		}
 	}
+
 function startup () {
 	console.log ("startup");
 	$("#idVersionNumber").text (myVersion);
@@ -887,6 +892,7 @@ function startup () {
 	
 	startTabsIfHomePage (tabParam, function () {
 		viewLastUpdateString (); //9/28/17 by DW
+		viewFooterLastUpdateString (); //10/28/21 by DW
 		updateSnarkySlogan (); //1/23/19 by DW
 		setupJavaScriptFeatures ();
 		setPageTopImageFromMetadata (); //5/4/20 by DW
