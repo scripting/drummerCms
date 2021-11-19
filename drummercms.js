@@ -1,4 +1,4 @@
-var myVersion = "0.4.10", myProductName = "drummerCms";   
+var myVersion = "0.4.11", myProductName = "drummerCms";   
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -184,6 +184,7 @@ function oldschoolBuild (blogName, callback) {
 						baseUrl: blogConfig.baseUrl,
 						ctSecs: utils.secondsSince (whenstart),
 						oldSchoolVersion: oldschool.getVersionInfo ().myVersion,
+						eventLog, //11/2/21 by DW
 						headLevelAtts: theOutline.opml.head
 						};
 					callback (undefined, data);
