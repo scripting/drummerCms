@@ -198,6 +198,7 @@ body {
 		margin-top: 30px;
 		margin-left: 40px;
 		margin-right: 40px;
+		margin-bottom: 30px;
 		}
 	.iTabIcon {
 		margin-right: .4em;
@@ -631,6 +632,31 @@ body {
 	.spMarkdownText ul li {
 		list-style-type: disc;
 		}
+	.spMarkdownText p {
+		margin-bottom: 0.6em;
+		line-height: 150%;
+		}
+	.divMarkdownText ul, .divMarkdownText ol {
+		margin-top: 7px;
+		margin-bottom: 7px;
+		}
+	.divMarkdownText ol li {
+		list-style-type: numeric;
+		}
+	.divMarkdownText ul li {
+		list-style-type: disc;
+		}
+	.divMarkdownText p {
+		margin-bottom: 0.6em;
+		line-height: 150%;
+		}
+	
+	.divMarkdownText h6, .divMarkdownText h5, .divMarkdownText h4, .divMarkdownText h3, .divMarkdownText h2, .divMarkdownText h1 {
+		margin-top: 15px;
+		}
+	
+	
+	
 
 /* styles for phone */
 	@media only screen 
