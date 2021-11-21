@@ -651,6 +651,9 @@ body {
 		line-height: 150%;
 		}
 	
+	.divMarkdownText {
+		margin-top: 25px;
+		}
 	.divMarkdownText h6, .divMarkdownText h5, .divMarkdownText h4, .divMarkdownText h3, .divMarkdownText h2, .divMarkdownText h1 {
 		margin-top: 15px;
 		}
