@@ -1,4 +1,4 @@
-var myVersion = "0.4.11", myProductName = "drummerCms";   
+var myVersion = "0.4.11", myProductName = "drummerCms";  
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -18,6 +18,7 @@ var config = {
 	appDomain: "oldschool.scripting.com", //10/12/21 by DW
 	s3BasePath: "/oldschool.scripting.com/", //10/12/21 by DW
 	s3BaseUrl:  "http://oldschool.scripting.com/", //10/12/21 by DW
+	drummerHome: "http://drummer.land/", //2/21/23 by DW
 	specialOutlines: { //9/4/21 by DW
 		changenotes: {
 			urlBlogOpml: "http://drummer.scripting.com/davewiner/drummer/changeNotes.opml",
@@ -163,7 +164,7 @@ function oldschoolBuild (blogName, callback) {
 		baseUrl = config.specialOutlines [blogName].baseUrl;
 		}
 	else {
-		urlBlogOpml = "http://drummer.scripting.com/" + blogName + "/blog.opml";
+		urlBlogOpml = config.drummerHome + blogName + "/blog.opml"; //2/21/23 by DW
 		basePath = config.s3BasePath + blogName + "/"; //10/12/21 by DW
 		baseUrl = config.s3BaseUrl + blogName + "/"; //10/12/21 by DW
 		}

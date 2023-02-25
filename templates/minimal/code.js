@@ -535,6 +535,10 @@ function setupExpandableImages () {
 function setupExpandableVideo () {
 	setupExpandableType ("urlvideo", "<iframe width=\"560\" height=\"315\" src=\"[%attval%]\" frameborder=\"0\" allowfullscreen></iframe>");
 	}
+function setupGists () { //12/20/21 by DW
+	var template = "<iframe width=\"560\" height=\"315\" src=\"[%attval%].js\"></iframe>";
+	setupExpandableType ("urlgist", template);
+	}
 function setupExpandableDisqusThreads () {
 	const myDisqusGroup = "scripting";
 	
@@ -857,6 +861,7 @@ function setupJavaScriptFeatures () { //1/15/19 by DW
 	setupTwitterComments (); //12/14/18 by DW
 	setupSpoilers (); //3/3/20 by DW
 	setupTagrefs (); //7/17/21 by DW
+	setupGists (); //12/20/21 by DW
 	try { //9/21/19 by DW
 		if (modalImageViewStartup !== undefined) { //6/25/18 by DW
 			modalImageViewStartup (); 
