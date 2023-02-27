@@ -1,4 +1,4 @@
-var myVersion = "0.4.11", myProductName = "drummerCms";  
+var myVersion = "0.4.12", myProductName = "drummerCms";  
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -14,7 +14,9 @@ var config = {
 	defaultDescription: "",
 	defaultHeaderImage: "http://scripting.com/images/2021/08/02/joeDiMaggio.png",
 	defaultCopyright: "",
-	defaultTemplate: "http://scripting.com/code/drummercms/template/index.html",
+	
+	defaultTemplate: "http://scripting.com/code/drummercms/templates/minimal/index.html", //2/25/23 by DW
+	
 	appDomain: "oldschool.scripting.com", //10/12/21 by DW
 	s3BasePath: "/oldschool.scripting.com/", //10/12/21 by DW
 	s3BaseUrl:  "http://oldschool.scripting.com/", //10/12/21 by DW
