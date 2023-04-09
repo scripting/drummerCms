@@ -660,6 +660,10 @@ body {
 	
 	
 	
+/*  4/9/23 by DW */
+	.divEmbeddedToot {
+		visibility: hidden;
+		}
 
 /* styles for phone */
 	@media only screen 

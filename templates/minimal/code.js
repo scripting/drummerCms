@@ -665,6 +665,46 @@ function setupTweets () {
 			}
 		});
 	}
+function setupMastodonToots () { //4/9/23 by DW
+	$(".divPageBody li, .divSingularItem").each (function () {
+		const urltoot = $(this).data ("urltoot");
+		var parentOfToot = this, tootObject = undefined;
+		if (urltoot !== undefined) {
+			console.log ("setupMastodonToots: urltoot == " + urltoot); 
+			initWedge (parentOfToot, function (flExpand) {
+				if (flExpand) {
+					function exposeTootObject () {
+						$(tootObject).slideDown (75, undefined, function () {
+							$(tootObject).css ("visibility", "visible");
+							});
+						}
+					if (tootObject === undefined) {
+						const domain = urltoot.split ("/") [2];
+						const urlembed = "https://" + domain + "/api/oembed?url=" + encodeURIComponent (urltoot);
+						readHttpFile (urlembed, function (jsontext) {
+							if (jsontext !== undefined) {
+								const jstruct = JSON.parse (jsontext);
+								console.log ("setupMastodonToots: jsontext == " + jsonStringify (jstruct));
+								tootObject = $("<div class=\"divEmbeddedToot\"></div>");
+								const embeddedObject = $(jstruct.html);
+								embeddedObject.attr ("width", 500);
+								$(tootObject).append (embeddedObject);
+								$(parentOfToot).append (tootObject);
+								exposeTootObject ();
+								}
+							});
+						}
+					else {
+						exposeTootObject ();
+						}
+					}
+				else {
+					$(tootObject).slideUp (75);
+					}
+				});
+			}
+		});
+	}
 function setupExpandableOutline () {
 	$(".divPageBody li").each (function () {
 		var ul = $(this).next ();
@@ -862,6 +902,7 @@ function setupJavaScriptFeatures () { //1/15/19 by DW
 	setupSpoilers (); //3/3/20 by DW
 	setupTagrefs (); //7/17/21 by DW
 	setupGists (); //12/20/21 by DW
+	setupMastodonToots (); //4/9/23 by DW
 	try { //9/21/19 by DW
 		if (modalImageViewStartup !== undefined) { //6/25/18 by DW
 			modalImageViewStartup (); 
