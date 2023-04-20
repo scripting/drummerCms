@@ -17,7 +17,7 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 			},
 		{
 			enabled: function () {
-				return (opmlHead.urlLinkblogJson !== undefined);
+				return ((opmlHead.urlLinkblogJson !== undefined) || (opmlHead.urlLinkblogXml !== undefined));
 				},
 			active: false,
 			id: "links",
@@ -63,12 +63,27 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 		}
 	function viewLinkblogTab (callback) {
 		setTabContent (""); //wipe out the blog html before user sees it
-		if (opmlHead.urlLinkblogJson === undefined) {
-			callback (false);
+		if (opmlHead.urlLinkblogXml === undefined) {
+			if (opmlHead.urlLinkblogJson === undefined) {
+				callback (false);
+				}
+			else {
+				var urlHtmltext = stringPopExtension (opmlHead.urlLinkblogJson) + ".html";
+				readHttpFile (urlHtmltext, function (htmltext) {
+					if (htmltext === undefined) {
+						callback (false);
+						}
+					else {
+						setTabContent (htmltext);
+						callback (true);
+						}
+					});
+				}
 			}
-		else {
-			var urlHtmltext = stringPopExtension (opmlHead.urlLinkblogJson) + ".html";
-			readHttpFile (urlHtmltext, function (htmltext) {
+		else { //4/20/23 by DW
+			const apiUrl = "http://feeder.scripting.com/returnlinkbloghtml?url=" + encodeURIComponent (opmlHead.urlLinkblogXml);
+			console.log ("viewLinkblogTab: apiUrl == " + apiUrl);
+			readHttpFile (apiUrl, function (htmltext) {
 				if (htmltext === undefined) {
 					callback (false);
 					}

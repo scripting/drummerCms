@@ -1,3 +1,7 @@
+#### 4/20/23; 12:00:26 PM by DW
+
+Made it work with FeedLand as a linkblog tool.
+
 #### 4/9/23; 12:41:56 PM by DW
 
 Added support for embedding Mastodon toots. 
