@@ -20,6 +20,22 @@ To deploy to Palatka, open the build script and set flDeploy to true in the head
 
 nodeEditorSuite.utilities.buildDrummerCms
 
+#### 10/14/21 by DW
+
+Added support for urlBlogWebsite head-level attribute. 
+
+#### 9/4/21 by DW
+
+Provision for special outlines, where the OPML comes from somewhere else, and the output is uploaded to another S3 location.
+
+#### 9/2/21 by DW
+
+A couple of weeks ago I basically took the Scripting News template and ran the Drummer blogs through it.  
+
+I spent a couple of days cleaning up and simplifying the template, adding tabs for a blog, linkblog and about outline, and removing functionality that didn't prove useful for Scripting News. At times there were tabs for chat, a river of news, others.  
+
+The template is in a templates folder here, with space for more templates to be added. 
+
 #### 8/9/21; 11:13:35 AM by DW
 
 An old school for drummer users.

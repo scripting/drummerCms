@@ -18,19 +18,5 @@ The <a href="https://github.com/scripting/drummerCms">repo</a> is open, use the 
 
 ### Updates
 
-* 10/14/21 by DW
-
-Added support for urlBlogWebsite head-level attribute. 
-
-* 9/4/21 by DW
-
-Provision for special outlines, where the OPML comes from somewhere else, and the output is uploaded to another S3 location.
-
-* 9/2/21 by DW
-
-A couple of weeks ago I basically took the Scripting News template and ran the Drummer blogs through it.  
-
-I spent a couple of days cleaning up and simplifying the template, adding tabs for a blog, linkblog and about outline, and removing functionality that didn't prove useful for Scripting News. At times there were tabs for chat, a river of news, others.  
-
-The template is in a templates folder here, with space for more templates to be added. 
+See the <a href="worknotes.md">worknotes.md</a> page.
 
