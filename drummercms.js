@@ -1,4 +1,4 @@
-var myVersion = "0.4.12", myProductName = "drummerCms";  
+var myVersion = "0.5.1", myProductName = "drummerCms";  
 
 const fs = require ("fs");  
 const request = require ("request");  
@@ -23,7 +23,7 @@ var config = {
 	drummerHome: "http://drummer.land/", //2/21/23 by DW
 	specialOutlines: { //9/4/21 by DW
 		changenotes: {
-			urlBlogOpml: "http://drummer.scripting.com/davewiner/drummer/changeNotes.opml",
+			urlBlogOpml: "https://drummer.land/dave.winer@gmail.com/feedland/changenotes/changes.opml",
 			basePath: "/scripting.com/drummer/blog/",
 			baseUrl: "http://scripting.com/drummer/blog/"
 			}
@@ -50,7 +50,7 @@ function httpRequest (url, timeout, headers, callback) {
 			}
 		});
 	}
-function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callback) {
+function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, wordpressConfig, callback) {
 	var oldschoolConfig = oldschool.getConfig ();
 	var theConfig = oldschoolConfig.blogs [blogName];
 	function copyAllHeadElements () {
@@ -118,7 +118,8 @@ function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callb
 			flGoogleAnalytics: false,
 			flAlwaysBuildHomePage: true, //8/23/21 by DW
 			flOldSchoolUseCache, //8/30/21 by DW
-			timeZoneOffset //10/13/21 by DW
+			timeZoneOffset, //10/13/21 by DW
+			wordpress: wordpressConfig //8/9/23 by DW
 			};
 		theConfig = oldschoolConfig.blogs [blogName];
 		copyAllHeadElements ();
@@ -137,6 +138,7 @@ function initBlogConfig (blogName, urlOpml, basePath, baseUrl, theOutline, callb
 		theConfig.urlAboutOpml = urlAboutOpml; //10/18/21 by DW
 		theConfig.baseUrl = baseUrl; //10/20/21 by DW
 		theConfig.timeZoneOffset = timeZoneOffset; //10/20/21 by DW
+		theConfig.wordpress = wordpressConfig; //8/9/23 by DW
 		copyAllHeadElements ();
 		callback (theConfig);
 		}
@@ -158,7 +160,7 @@ function getBlogOutline (urlBlogOpml, callback) {
 			}
 		})
 	}
-function oldschoolBuild (blogName, callback) {
+function oldschoolBuild (blogName, params, callback) {
 	var urlBlogOpml, basePath, baseUrl, whenstart = new Date ();
 	if (config.specialOutlines [blogName] !== undefined) {
 		urlBlogOpml = config.specialOutlines [blogName].urlBlogOpml;
@@ -171,14 +173,25 @@ function oldschoolBuild (blogName, callback) {
 		baseUrl = config.s3BaseUrl + blogName + "/"; //10/12/21 by DW
 		}
 	
+	var wordpressConfig = undefined; //8/9/23 by DW
+	if (params.wordpress !== undefined) { //8/9/23 by DW
+		wordpressConfig = {
+			enabled: true,
+			siteurl: params.siteurl,
+			username: params.username, 
+			password: params.password
+			};
+		}
+	
 	getBlogOutline (urlBlogOpml, function (err, theOutline) {
 		if (err) {
 			const message = "Can't build the blog for \"" + blogName + "\" because blog.opml doesn't exist in Drummer, or is private.";
 			callback ({message});
 			}
 		else {
-			initBlogConfig (blogName, urlBlogOpml, basePath, baseUrl, theOutline, function (theConfig) {
+			initBlogConfig (blogName, urlBlogOpml, basePath, baseUrl, theOutline, wordpressConfig, function (theConfig) {
 				console.log ("oldschoolBuild: blogName == " + blogName);
+				console.log ("oldschoolBuild: theConfig == " + utils.jsonStringify (theConfig));
 				var options = {
 					blogName
 					};
@@ -234,7 +247,7 @@ function handleHttpRequest (theRequest) {
 						});
 					return (true);
 				case "/build":
-					oldschoolBuild (params.blog, httpReturn);
+					oldschoolBuild (params.blog, params, httpReturn);
 					return;
 				}
 			break;

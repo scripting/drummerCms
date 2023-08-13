@@ -1,3 +1,13 @@
+#### 8/9/23; 3:23:10 PM by DW
+
+Support for wordpress.
+
+#### 7/31/23; 6:04:00 PM by DW -- v0.5.0
+
+The URL of the changenotes outline changed to:
+
+https://drummer.land/dave.winer@gmail.com/feedland/changenotes/changes.opml
+
 #### 4/20/23; 12:00:26 PM by DW
 
 Made it work with FeedLand as a linkblog tool.
