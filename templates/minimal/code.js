@@ -173,7 +173,7 @@ var urlTwitterServer = "http://electricserver.scripting.com/";
 					$("#idTabList").append (theTabListItem);
 					}
 				});
-			$("#idTabsPage").css ("display", "block")
+			$("#idTabsPage").css ("display", "table-cell");
 			callback ();
 			}
 		else {
@@ -940,6 +940,95 @@ function movePageDownForOldArchivePages () { //9/21/19 by DW
 		}
 	}
 
+
+function getBlogrollOptions (headLevelAtts) {
+	
+	const urlFeedlandCom = "https://feedland.com/";
+	const wsUrlFeedlandCom = "wss://feedland.com:443/_ws/";
+	
+	var username = headLevelAtts.blogrollUsername;
+	var urlServer = headLevelAtts.blogrollServer;
+	var catname = headLevelAtts.blogrollCategory;
+	
+	var urlSocketServer, urlFeedlandViewBlogroll;
+	
+	if (username === undefined) { //username is required
+		return (undefined);
+		}
+	else {
+		username = trimWhitespace (username);
+		if (username.length == 0) {
+			return (undefined);
+			}
+		else {
+			if (urlServer === undefined) {
+				urlServer = urlFeedlandCom;
+				}
+			urlServer = trimWhitespace (urlServer);
+			if (!endsWith (urlServer, "/")) {
+				urlServer += "/";
+				}
+			if (catname !== undefined) {
+				catname = trimWhitespace (catname);
+				if (catname.length == 0) {
+					catname = undefined;
+					}
+				}
+			
+			//set urlSocketServer
+				if (urlServer == urlFeedlandCom) {
+					urlSocketServer = "wss://feedland.com:443/_ws/";
+					}
+				else {
+					urlSocketServer = replaceAll (urlServer, "https://", "wss://");
+					}
+			//set urlFeedlandViewBlogroll
+				urlFeedlandViewBlogroll = urlServer + "?username=" + urlEncode (username);
+				if (catname !== undefined) {
+					urlFeedlandViewBlogroll +=  "&catname=" + urlEncode (catname);
+					}
+			//set urlBlogrollOpml
+				urlBlogrollOpml = urlServer + "opml?screenname=" + urlEncode (username);
+				if (catname !== undefined) {
+					urlBlogrollOpml +=  "&catname=" + urlEncode (catname);
+					}
+			
+			return ({urlSocketServer, urlFeedlandViewBlogroll, urlBlogrollOpml});
+			}
+		}
+	}
+
+function startBlogroll (callback) { //4/14/24 by DW
+	console.log ("startBlogroll");
+	var options = getBlogrollOptions (opmlHead); 
+	if (options !== undefined) { //a blogroll is called for
+		options.whereToAppend = $(".divBlogrollContainer");
+		options.title = (opmlHead.blogrollTitle === undefined) ? "Just A Blogroll" : opmlHead.blogrollTitle;
+		options.flDisplayTitle = true;
+		options.blogrollDisplayedCallback = function () {
+			console.log ("blogrollDisplayedCallback");
+			if (callback !== undefined) {
+				callback ();
+				}
+			}
+		try { //2/28/24 by DW
+			const theBlogroll = new blogroll (options);
+			if (callback !== undefined) {
+				callback ();
+				}
+			}
+		catch (err) {
+			console.log ("startBlogroll: err.message == " + err.message);
+			if (callback !== undefined) {
+				callback (err);
+				}
+			}
+		}
+	else {
+		$(".divSidebar").css ("display", "none");
+		}
+	}
+
 function startup () {
 	console.log ("startup");
 	$("#idVersionNumber").text (myVersion);
@@ -964,6 +1053,7 @@ function startup () {
 		self.setInterval (everySecond, 1000); 
 		runEveryMinute (everyMinute);
 		infiniteScrollHandler (); //10/17/19 by DW
+		startBlogroll (); //4/14/24 by DW
 		});
 	
 	}

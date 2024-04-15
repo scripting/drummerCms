@@ -381,10 +381,10 @@ body {
 		margin-top: -2px;
 		}
 	.darkCaretColor {
-		color: green;
+		color: black;
 		}
 	.lightCaretColor {
-		color: green;
+		color: black;
 		opacity: .3;
 		}
 /* 7/24/17 by DW -- tweets */
@@ -663,6 +663,28 @@ body {
 /*  4/9/23 by DW */
 	.divEmbeddedToot {
 		visibility: hidden;
+		}
+/* 4/14/24 by DW */
+	.divPageBody {
+		width: 880px;
+		}
+	.divTabsPage {
+		display: table-cell;
+		vertical-align: top;
+		width: 680px;
+		margin-left: auto;
+		margin-right: auto;
+		}
+	.divSpacerCell {
+		display: table-cell;
+		width: 8px;
+		}
+	.divSidebar {
+		display: table-cell;
+		}
+	.divBlogrollTitle { 
+		font-family: "Impact", "Ubuntu";
+		font-size: 30px;
 		}
 
 /* styles for phone */

@@ -29,6 +29,15 @@
 		<script src="//scripting.com/code/opmlpackage/client/opml.js"></script>
 		<script src="//scripting.com/code/outlinebrowser/code.js"></script>
 		<link href="//scripting.com/code/outlinebrowser/styles.css" rel="stylesheet" type="text/css">
+		
+		<!-- This stuff is needed for blogroll -- 4/14/24 by DW -->
+			<script src="//s3.amazonaws.com/scripting.com/code/feedland/home/api.js"></script>
+			<script src="//s3.amazonaws.com/scripting.com/code/feedland/home/misc.js"></script>
+			<link href="//s3.amazonaws.com/scripting.com/code/feedland/home/misc.css" rel="stylesheet" type="text/css">
+			<link href="//s3.amazonaws.com/scripting.com/code/feedland/home/mobile.css" rel="stylesheet" type="text/css">
+			<link href="https://code.scripting.com/blogroll/blogroll.css" rel="stylesheet">
+			<script src="https://code.scripting.com/blogroll/blogroll.js"></script>
+		
 		<link href="//scripting.com/code/drummercms/templates/minimal/styles.css" rel="stylesheet" type="text/css">
 		<script src="//scripting.com/code/drummercms/templates/minimal/code.js"></script>
 		
@@ -52,7 +61,7 @@
 			[%pagetop%]
 			</div>
 		<div class="divPageBody">
-			<div class="divTabsPage" id="idTabsPage" style="display: none">
+			<div class="divTabsPage" id="idTabsPage" stylex="display: none">
 				<div class="divTabs" id="idTabs">
 					<div class="divLastBlogUpdate" id="idLastBlogUpdate">
 						</div>
@@ -67,6 +76,14 @@
 					</div>
 				
 				</div>
+			
+			<div class="divSpacerCell">
+				</div>
+			<div class="divSidebar">
+				<div class="divBlogrollContainer" id="idBlogrollContainer" tabindex="0">
+					</div>
+				</div>
+			
 			<div class="divDayContainer" id="idDayContainer" style="display: none">
 				[%bodytext%]
 				</div>
