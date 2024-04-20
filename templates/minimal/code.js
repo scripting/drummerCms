@@ -993,7 +993,10 @@ function getBlogrollOptions (headLevelAtts) {
 					urlBlogrollOpml +=  "&catname=" + urlEncode (catname);
 					}
 			
-			return ({urlSocketServer, urlFeedlandViewBlogroll, urlBlogrollOpml});
+			//set urlFeedlandServer -- 4/19/24 by DW
+				urlFeedlandServer = urlServer;
+			
+			return ({urlFeedlandServer, urlSocketServer, urlFeedlandViewBlogroll, urlBlogrollOpml});
 			}
 		}
 	}
@@ -1053,7 +1056,12 @@ function startup () {
 		self.setInterval (everySecond, 1000); 
 		runEveryMinute (everyMinute);
 		infiniteScrollHandler (); //10/17/19 by DW
-		startBlogroll (); //4/14/24 by DW
+		if (config.flHomePage) { //4/14/24 by DW
+			startBlogroll (); 
+			}
+		else {
+			$(".divSidebar").css ("display", "none");
+			}
 		});
 	
 	}
