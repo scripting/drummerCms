@@ -1,3 +1,9 @@
+#### 2/9/26; 10:54:37 AM by DW
+
+How to change the template for drummer users.
+
+https://github.com/scripting/drummerCms/issues/4
+
 #### 4/14/24; 11:19:24 AM by DW
 
 Blogroll support. 
